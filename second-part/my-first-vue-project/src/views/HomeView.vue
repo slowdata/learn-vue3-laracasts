@@ -1,20 +1,29 @@
-<script setup >
-import { useStorage } from '@/composables/useStorage'
+<script setup>
+import TabbableTextarea from "@/components/TabbableTextarea.vue"
+import { state } from "@/stores/quizStore"
+// import { counter } from "@/stores/counterStore"
+import { useCounterStore } from "@/stores/CounterStore"
 
-let food = useStorage('food', 'Tacos')
+import { ref } from "vue"
+import { provide } from "vue"
 
-let age = useStorage('age', 46)
+let comment = ref("Oi")
 
+let counter = useCounterStore()
 
+provide("foo", "bar")
 </script>
 
 <template>
   <main>
-    <p>
-      What is your favorite food? <input type="text" v-model="food">
-    </p>
-    <p>
-      What is age? <input type="text" v-model="age">
-    </p>
+    <h2>{{ counter.count }}</h2>
+    <button @click="counter.increment" :disabled="!counter.remaining">
+      increment ({{ counter.remaining }} remaining)
+    </button>
+    <!--      {{ state.name }}-->
+    <form style="margin-top: 100px">
+      <TabbableTextarea v-model="comment" style="width: 100%; height: 300px" />
+    </form>
+    <button @click="state.name = 'foobar!!'">Click Me!</button>
   </main>
 </template>
