@@ -8,18 +8,18 @@
       </tr>
     </thead>
     <tbody>
-      <TeamMember
-        v-for="member in team.members"
-        :member="member"
-        :key="member.id"
-      />
+      <TeamMember v-for="member in members" :member="member" :key="member.id" />
     </tbody>
   </table>
+  <p v-show="remaining" class="text-right text-gray-600 italic">
+    There are no remaining team spots. Upgrade to add more.
+  </p>
 </template>
 <script setup>
 import TeamMember from "@/components/Teams/TeamMember.vue";
 
-defineProps({
-  team: Object,
-});
+import { useTeamStore } from "@/stores/TeamStore";
+
+let { members, remaining } = useTeamStore();
+
 </script>
