@@ -1,22 +1,28 @@
-<template>
-  <TeamHead />
-
-  <div class="place-self-center flex flex-col gap-y-3 mt-6" style="width: 725px">
-    <TeamMembers />
-  </div>
-
-  <TeamFooter />
-</template>
 <script setup>
+import TeamHeader from "@/components/Teams/TeamHeader.vue";
 import TeamMembers from "@/components/Teams/TeamMembers.vue";
-import TeamHead from "@/components/Teams/TeamHeader.vue";
 import TeamFooter from "@/components/Teams/TeamFooter.vue";
+import Model from '@/components/Model.vue'
 
-//import team from "@/team.json";
-import { useTeamStore } from "@/stores/TeamStore";
+import { ref } from "vue";
+import { useTeamStore } from "@/stores/TeamStore.js";
 
-// const { team } = useTeamStore()
-const team = useTeamStore()
+const team = useTeamStore();
+team.fill();
 
+let showModel = ref(false)
 
 </script>
+
+<template>
+  <TeamHeader @add="showModel = true" />
+  <TeamMembers />
+  <TeamFooter />
+
+  <Model :show="showModel" @close="showModel = false">
+    <template #default>
+      Override header
+    </template>
+
+  </Model>
+</template>
