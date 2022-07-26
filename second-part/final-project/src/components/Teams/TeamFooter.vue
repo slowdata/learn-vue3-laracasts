@@ -8,5 +8,5 @@
 <script setup>
 import { useTeamStore } from '@/stores/TeamStore';
 
-let { name, spots } = useTeamStore
+let { name, spots } = useTeamStore()
 </script>
